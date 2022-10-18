@@ -11,9 +11,8 @@ abstract public class AbstractSeleniumPage {
     protected static final Logger LOG = LogManager.getLogger(AbstractSeleniumPage.class);
     protected static WebDriver webDriver;
 
-    public static WebDriver setWebDriver(WebDriver driver) {
+    public static void setWebDriver(WebDriver driver) {
         webDriver = driver;
-        return webDriver;
     }
 
     public static WebDriver getWebDriver() {
