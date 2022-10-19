@@ -23,9 +23,9 @@ public class taskTest2 extends AbstractSeleniumTest {
     private final String URL = "https://opensource-demo.orangehrmlive.com/";
     private int randomNumber = (int) (Math.random() * (30 + 1)) + 10;
     private final String name = "Grade " + randomNumber;
-    private final String currency = "Indonesian Rupiah";
-    private final String minSalary = "30000";
-    private final String maxSalary = "100000";
+    private final String expectedCurrency = "Indonesian Rupiah";
+    private final String expectedMinSalary = "30000";
+    private final String expectedMaxSalary = "100000";
 
     @Test
     public void testCase2() throws Exception {
@@ -46,8 +46,8 @@ public class taskTest2 extends AbstractSeleniumTest {
                 .shouldBeVisibleSuccessMessagePG()
                 .clickAddCurrenciesButton()
                 .clickSelectButtonAndChooseMoney();
-        payGradesPage.enterMinSalary(minSalary)
-                .enterMaxSalary(maxSalary)
+        payGradesPage.enterMinSalary(expectedMinSalary)
+                .enterMaxSalary(expectedMaxSalary)
                 .clickSaveCurrencyButton()
                 .shouldBeVisibleSuccessMessageCurrency();
 
@@ -61,8 +61,8 @@ public class taskTest2 extends AbstractSeleniumTest {
         String xpath1 = "//div[@class='oxd-table-row oxd-table-row--with-border']/descendant::div[@class='header'] | //div[@class='oxd-table-header-cell oxd-padding-cell oxd-table-th'][position()>1 and position()<5]";
         String xpath2 = "//div[@class='oxd-table-row oxd-table-row--with-border']/descendant::div[@class='data'] | //div[@class='oxd-table-cell oxd-padding-cell'][position()>1 and position()<5]";
         WebDriverWait wait = new WebDriverWait(AbstractSeleniumPage.getWebDriver(), Duration.ofSeconds(20));
-        List<WebElement> listHeader = AbstractSeleniumPage.getWebDriver().findElements(By.xpath("//div[@class='oxd-table-row oxd-table-row--with-border']/descendant::div[@class='header'] | //div[@class='oxd-table-header-cell oxd-padding-cell oxd-table-th'][position()>1 and position()<5]"));
-        List<WebElement> listValues = AbstractSeleniumPage.getWebDriver().findElements(By.xpath("//div[@class='oxd-table-row oxd-table-row--with-border']/descendant::div[@class='data'] | //div[@class='oxd-table-cell oxd-padding-cell'][position()>1 and position()<5]"));
+        List<WebElement> listHeader = AbstractSeleniumPage.getWebDriver().findElements(By.xpath(xpath1));
+        List<WebElement> listValues = AbstractSeleniumPage.getWebDriver().findElements(By.xpath(xpath2));
         wait.until(ExpectedConditions.visibilityOf(listValues.get(0)));
         Iterator<WebElement> iterator = listValues.iterator();
         while (iterator.hasNext()) {
@@ -79,9 +79,9 @@ public class taskTest2 extends AbstractSeleniumTest {
                 }
             }
         }
-        softAssert.assertEquals(Evaluator.getVariable("Currency"), currency);
-        softAssert.assertEquals(Evaluator.getVariable("Minimum Salary"), minSalary);
-        softAssert.assertEquals(Evaluator.getVariable("Maximum Salary"), maxSalary);
+        softAssert.assertEquals(Evaluator.getVariable("Currency"), expectedCurrency);
+        softAssert.assertEquals(Evaluator.getVariable("Minimum Salary"), expectedMinSalary);
+        softAssert.assertEquals(Evaluator.getVariable("Maximum Salary"), expectedMaxSalary);
         softAssert.assertAll();
     }
 }
