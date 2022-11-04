@@ -16,8 +16,8 @@ public class LoginPage extends AbstractSeleniumPage {
 
     public LoginPage() {
         PageFactory.initElements(webDriver, this);
-        boolean isOpen = shouldExistQuestion();
-        Assertions.assertTrue(isOpen, "Login page is not Open");
+        //boolean isOpen = shouldExistQuestion();
+        //Assertions.assertTrue(isOpen, "Login page is not Open");
     }
 
     @FindBy(xpath = "//input[@name='username']")

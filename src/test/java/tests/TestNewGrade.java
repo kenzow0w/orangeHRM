@@ -14,13 +14,13 @@ import pages.PayGradesPage;
 import service.AbstractSeleniumPage;
 import service.AbstractSeleniumTest;
 import utils.Evaluator;
+
 import java.time.Duration;
 import java.util.*;
 
-public class taskTest2 extends AbstractSeleniumTest {
+public class TestNewGrade extends AbstractSeleniumTest {
 
     private static SoftAssert softAssert = new SoftAssert();
-    private final String URL = "https://opensource-demo.orangehrmlive.com/";
     private int randomNumber = (int) (Math.random() * (30 + 1)) + 10;
     private final String name = "Grade " + randomNumber;
     private final String expectedCurrency = "Indonesian Rupiah";
@@ -28,10 +28,9 @@ public class taskTest2 extends AbstractSeleniumTest {
     private final String expectedMaxSalary = "100000";
 
     @Test
-    public void testCase2() throws Exception {
-        AbstractSeleniumPage.openWebSite(URL);
+    public void testInformationAboutNewGrade() throws Exception {
         LoginPage loginPage = new LoginPage();
-        loginPage.autorization(username, pass);
+        loginPage.autorization(USERNAME, PASS);
         LeftMenuPage leftMenuPage = new LeftMenuPage();
         leftMenuPage.clickAdminButton();
         AbstractSeleniumPage.refreshPage();
@@ -53,6 +52,7 @@ public class taskTest2 extends AbstractSeleniumTest {
 
         AbstractSeleniumPage.freeze(5000);
         checkInformationAboutPosition();
+        softAssert.assertAll();
     }
 
     private void checkInformationAboutPosition() throws AutotestException {
@@ -68,10 +68,10 @@ public class taskTest2 extends AbstractSeleniumTest {
         while (iterator.hasNext()) {
             for (WebElement element : listHeader) {
                 if (!Evaluator.containsKey(element.getText())) {
-                    String value =iterator.next().getText();
-                    if(value.contains(".")){
+                    String value = iterator.next().getText();
+                    if (value.contains(".")) {
                         Evaluator.setVariable(element.getText(), value.replaceAll(regex, ""));
-                    }else {
+                    } else {
                         Evaluator.setVariable(element.getText(), value);
                     }
 
@@ -82,6 +82,5 @@ public class taskTest2 extends AbstractSeleniumTest {
         softAssert.assertEquals(Evaluator.getVariable("Currency"), expectedCurrency);
         softAssert.assertEquals(Evaluator.getVariable("Minimum Salary"), expectedMinSalary);
         softAssert.assertEquals(Evaluator.getVariable("Maximum Salary"), expectedMaxSalary);
-        softAssert.assertAll();
     }
 }

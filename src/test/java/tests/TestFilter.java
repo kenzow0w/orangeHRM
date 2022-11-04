@@ -1,5 +1,6 @@
 package tests;
 
+import jdk.jfr.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
@@ -12,16 +13,18 @@ import service.AbstractSeleniumTest;
 import java.util.List;
 import java.util.Locale;
 
-public class taskTest1 extends AbstractSeleniumTest {
+public class TestFilter extends AbstractSeleniumTest {
 
     private static SoftAssert softAssert = new SoftAssert();
 
 
+    @Description(value = "Verify the results contains user(s) with " +
+            "name containing the Name field input “ch”")
     @Test
-    public void testCase1() throws Exception {
+    public void testFilterForNamesAndCountry() throws Exception {
         AbstractSeleniumPage.openWebSite(URL);
         LoginPage loginPage = new LoginPage();
-        loginPage.autorization(username, pass);
+        loginPage.autorization(USERNAME, PASS);
         LeftMenuPage leftMenuPage = new LeftMenuPage();
         leftMenuPage.clickDirectoryButton();
         AbstractSeleniumPage.freeze(2000);
