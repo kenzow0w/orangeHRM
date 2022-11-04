@@ -1,6 +1,7 @@
 package service;
 
 import com.codeborne.selenide.Selenide;
+import configs.ConfigReader;
 import exceptions.AutotestException;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
@@ -24,13 +25,10 @@ abstract public class AbstractSeleniumTest {
 
     @BeforeTest
     public void setUp() throws AutotestException, InterruptedException {
+        ConfigReader.getLoginConfigs();
         WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        Map<String, Object> prefs = new HashMap<String, Object>();
-        prefs.put("credentials_enable_service", false);
-        prefs.put("profile.password_manager_enabled", false);
-        options.setExperimentalOption("prefs", prefs);
-        options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        ChromeOptions options = chromeDriverOptionsInit();
+
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
@@ -39,12 +37,22 @@ abstract public class AbstractSeleniumTest {
         AbstractSeleniumPage.openWebSite(URL);
     }
 
-    public void clearCookiesAndLocalStorage(){
+    private static ChromeOptions chromeDriverOptionsInit() {
+        ChromeOptions chromeOptions = new ChromeOptions();
+        Map<String, Object> prefs = new HashMap<String, Object>();
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
+        chromeOptions.setExperimentalOption("prefs", prefs);
+        chromeOptions.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+        return chromeOptions;
+    }
+
+    public void clearCookiesAndLocalStorage() {
         try {
 //            JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
             driver.manage().deleteAllCookies();
 //            javascriptExecutor.executeScript("window.sessionStorage.clear()");
-        }catch (Exception e){
+        } catch (Exception e) {
             throw e;
         }
     }
@@ -55,7 +63,7 @@ abstract public class AbstractSeleniumTest {
     }
 
     @AfterSuite(alwaysRun = true)
-    public void close(){
+    public void close() {
         if (driver != null) {
             Selenide.closeWebDriver();
             driver.quit();

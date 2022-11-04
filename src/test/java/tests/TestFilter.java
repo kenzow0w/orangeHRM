@@ -1,5 +1,6 @@
 package tests;
 
+import configs.ConfigReader;
 import jdk.jfr.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,6 +11,8 @@ import pages.LoginPage;
 import pages.MainPage;
 import service.AbstractSeleniumPage;
 import service.AbstractSeleniumTest;
+import utils.AccountCredentials;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -18,13 +21,20 @@ public class TestFilter extends AbstractSeleniumTest {
     private static SoftAssert softAssert = new SoftAssert();
 
 
+    @Test
+    public void test123(){
+        AccountCredentials accountCredentials = new AccountCredentials("Apple Apple1");
+        AccountCredentials accountCredentials2 = new AccountCredentials("Orange Orange");
+    }
+
+
     @Description(value = "Verify the results contains user(s) with " +
             "name containing the Name field input “ch”")
     @Test
     public void testFilterForNamesAndCountry() throws Exception {
         AbstractSeleniumPage.openWebSite(URL);
         LoginPage loginPage = new LoginPage();
-        loginPage.autorization(USERNAME, PASS);
+        loginPage.autorization("Orange Orange");
         LeftMenuPage leftMenuPage = new LeftMenuPage();
         leftMenuPage.clickDirectoryButton();
         AbstractSeleniumPage.freeze(2000);

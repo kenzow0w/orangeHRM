@@ -30,7 +30,7 @@ public class TestNewGrade extends AbstractSeleniumTest {
     @Test
     public void testInformationAboutNewGrade() throws Exception {
         LoginPage loginPage = new LoginPage();
-        loginPage.autorization(USERNAME, PASS);
+        loginPage.autorization("Orange Orange");
         LeftMenuPage leftMenuPage = new LeftMenuPage();
         leftMenuPage.clickAdminButton();
         AbstractSeleniumPage.refreshPage();
@@ -74,7 +74,6 @@ public class TestNewGrade extends AbstractSeleniumTest {
                     } else {
                         Evaluator.setVariable(element.getText(), value);
                     }
-
                     break;
                 }
             }

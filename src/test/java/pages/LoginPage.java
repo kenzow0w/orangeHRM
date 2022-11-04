@@ -9,6 +9,7 @@ import service.AbstractSeleniumPage;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import utils.AccountCredentials;
 
 public class LoginPage extends AbstractSeleniumPage {
 
@@ -16,8 +17,8 @@ public class LoginPage extends AbstractSeleniumPage {
 
     public LoginPage() {
         PageFactory.initElements(webDriver, this);
-        //boolean isOpen = shouldExistQuestion();
-        //Assertions.assertTrue(isOpen, "Login page is not Open");
+        boolean isOpen = shouldExistQuestion();
+        Assertions.assertTrue(isOpen, "Login page is not Open");
     }
 
     @FindBy(xpath = "//input[@name='username']")
@@ -32,9 +33,10 @@ public class LoginPage extends AbstractSeleniumPage {
     @FindBy(xpath = "//div[contains(@class, 'login-forgot')]")
     private WebElement questionAboutPassword;
 
-    public LoginPage autorization(String username, String password) throws InterruptedException {
-        AbstractSeleniumPage.sendKeysInElement(usernameField, username);
-        AbstractSeleniumPage.sendKeysInElement(passwordField, password);
+    public LoginPage autorization(String username) throws InterruptedException {
+        AccountCredentials accountCredentials = new AccountCredentials(username);
+        AbstractSeleniumPage.sendKeysInElement(usernameField, accountCredentials.getLogin());
+        AbstractSeleniumPage.sendKeysInElement(passwordField, accountCredentials.getPassword());
         clickLogin();
         return this;
     }
