@@ -1,6 +1,7 @@
 package tests;
 
 import exceptions.AutotestException;
+import jdk.jfr.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -27,6 +28,8 @@ public class TestNewGrade extends AbstractSeleniumTest {
     private final String expectedMinSalary = "30000";
     private final String expectedMaxSalary = "100000";
 
+    @Description(value = "Verify information " +
+            "about new Grade, Salary range, currency")
     @Test
     public void testInformationAboutNewGrade() throws Exception {
         LoginPage loginPage = new LoginPage();

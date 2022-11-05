@@ -52,7 +52,6 @@ abstract public class AbstractSeleniumPage {
                     Assertions.assertTrue(false, "error");
                 }
                 tries++;
-                LOG.info("Click button which name is {}", element.getText());
                 LOG.info("Click Attempt #" + tries);
                 element.click();
                 break;
@@ -64,7 +63,6 @@ abstract public class AbstractSeleniumPage {
 
     public static void sendKeysInElement(WebElement element, String text) {
         element.sendKeys(text);
-        LOG.info("In field put {}", text);
     }
 
     public static void scrollIntoView(String to) {

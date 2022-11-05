@@ -1,6 +1,5 @@
 package tests;
 
-import configs.ConfigReader;
 import jdk.jfr.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -23,8 +22,7 @@ public class TestFilter extends AbstractSeleniumTest {
 
     @Test
     public void test123(){
-        AccountCredentials accountCredentials = new AccountCredentials("Apple Apple1");
-        AccountCredentials accountCredentials2 = new AccountCredentials("Orange Orange");
+
     }
 
 
@@ -32,7 +30,6 @@ public class TestFilter extends AbstractSeleniumTest {
             "name containing the Name field input “ch”")
     @Test
     public void testFilterForNamesAndCountry() throws Exception {
-        AbstractSeleniumPage.openWebSite(URL);
         LoginPage loginPage = new LoginPage();
         loginPage.autorization("Orange Orange");
         LeftMenuPage leftMenuPage = new LeftMenuPage();

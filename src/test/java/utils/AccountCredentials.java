@@ -1,8 +1,6 @@
 package utils;
 
 import configs.AbstractConfig;
-import configs.ConfigReader;
-import configs.login.LoginAppleConfig;
 import exceptions.AutotestException;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,8 +8,6 @@ import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import static configs.ConfigReader.abstractConfigs;
 

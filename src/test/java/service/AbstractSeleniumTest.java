@@ -4,11 +4,14 @@ import com.codeborne.selenide.Selenide;
 import configs.ConfigReader;
 import exceptions.AutotestException;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import listeners.WebDriverEventHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.AfterAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.testng.annotations.*;
 
 import java.time.Duration;
@@ -20,21 +23,21 @@ abstract public class AbstractSeleniumTest {
     protected static final Logger LOG = LogManager.getLogger(AbstractSeleniumTest.class);
     protected WebDriver driver;
     protected final String URL = "https://opensource-demo.orangehrmlive.com/";
-    protected final String USERNAME = "Admin";
-    protected final String PASS = "admin123";
 
     @BeforeTest
     public void setUp() throws AutotestException, InterruptedException {
         ConfigReader.getLoginConfigs();
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = chromeDriverOptionsInit();
-
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(30));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-        AbstractSeleniumPage.setWebDriver(driver);
+        AbstractSeleniumPage.setWebDriver(WebDriverEventHandler.registerWebDriverEventListener(driver));
         AbstractSeleniumPage.openWebSite(URL);
+        Runtime.getRuntime().addShutdownHook(new Thread(
+                () -> AbstractSeleniumPage.getWebDriver().quit()
+        ));
     }
 
     private static ChromeOptions chromeDriverOptionsInit() {
