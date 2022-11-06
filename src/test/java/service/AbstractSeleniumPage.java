@@ -6,20 +6,13 @@ import org.openqa.selenium.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static factories.WebDriverFactory.*;
+
 abstract public class AbstractSeleniumPage {
 
     protected static final Logger LOG = LogManager.getLogger(AbstractSeleniumPage.class);
-    protected static WebDriver webDriver;
 
-    public static void setWebDriver(WebDriver driver) {
-        webDriver = driver;
-    }
-
-    public static WebDriver getWebDriver() {
-        return webDriver;
-    }
-
-    public static void openWebSite(String url) throws InterruptedException, AutotestException {
+    public static void getWebSite(String url) throws InterruptedException, AutotestException {
         int count = 0;
         do {
             try {
@@ -28,7 +21,7 @@ abstract public class AbstractSeleniumPage {
                 }
                 count++;
                 LOG.info("Attempt " + count + " open URL browser");
-                webDriver.get(url);
+                getCurrentWebDriver().get(url);
                 break;
             } catch (RuntimeException e) {
                 AbstractSeleniumPage.freeze(3000);
@@ -36,12 +29,13 @@ abstract public class AbstractSeleniumPage {
         } while (count < 3);
     }
 
+
     public static void freeze(int millis) throws InterruptedException {
         Thread.sleep(millis);
     }
 
     public static void refreshPage() {
-        getWebDriver().navigate().refresh();
+        getCurrentWebDriver().navigate().refresh();
     }
 
     public static void clickButton(WebElement element) throws InterruptedException {
@@ -66,7 +60,7 @@ abstract public class AbstractSeleniumPage {
     }
 
     public static void scrollIntoView(String to) {
-        JavascriptExecutor executor = (JavascriptExecutor) getWebDriver();
+        JavascriptExecutor executor = (JavascriptExecutor) getCurrentWebDriver();
         switch (to) {
             case "down":
                 executor.executeScript("window.scrollBy(0,200)");

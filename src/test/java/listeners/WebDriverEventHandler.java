@@ -1,8 +1,9 @@
 package listeners;
 
+import configs.ConfigReader;
+import listeners.highlighter.HighLighter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.bouncycastle.util.test.SimpleTestResult;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,8 +16,9 @@ import java.lang.reflect.Method;
 public class WebDriverEventHandler implements WebDriverListener {
 
     protected static final Logger LOG = LogManager.getLogger(WebDriverEventHandler.class);
+    private boolean isHighLighter = ConfigReader.PROPERTY_CONFIG.highLighter();
 
-    public static WebDriver registerWebDriverEventListener(WebDriver webDriver){
+    public static WebDriver registerWebDriverEventListener(WebDriver webDriver) {
         WebDriverEventHandler webDriverEventHandler = new WebDriverEventHandler();
         EventFiringDecorator eventFiringDecorator = new EventFiringDecorator(webDriverEventHandler);
         return eventFiringDecorator.decorate(webDriver);
@@ -51,7 +53,10 @@ public class WebDriverEventHandler implements WebDriverListener {
     public void afterFindElement(WebDriver driver, By locator, WebElement result) {
         WebDriverListener.super.afterFindElement(driver, locator, result);
         String regex = "^.{80}";
-        LOG.debug( "Found element with {}", result.toString().replaceAll(regex, "").replaceAll(".{2}$",""));
-
+        LOG.debug("Found element with {}", result.toString().replaceAll(regex, "").replaceAll(".{2}$", ""));
+        if (isHighLighter == true) {
+            HighLighter.highLightElement(driver, result);
+        }
     }
+
 }

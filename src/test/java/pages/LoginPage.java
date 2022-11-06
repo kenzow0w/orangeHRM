@@ -1,7 +1,7 @@
 package pages;
 
+import factories.WebDriverFactory;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -16,7 +16,7 @@ public class LoginPage extends AbstractSeleniumPage {
     private static final Logger LOG = LogManager.getLogger(LoginPage.class);
 
     public LoginPage() {
-        PageFactory.initElements(webDriver, this);
+        PageFactory.initElements(WebDriverFactory.getCurrentWebDriver(), this);
         boolean isOpen = shouldExistQuestion();
         Assertions.assertTrue(isOpen, "Login page is not Open");
     }

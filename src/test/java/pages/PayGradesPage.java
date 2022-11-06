@@ -1,5 +1,6 @@
 package pages;
 
+import factories.WebDriverFactory;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -12,7 +13,7 @@ import java.awt.event.KeyEvent;
 public class PayGradesPage extends AbstractSeleniumPage {
 
     public PayGradesPage() {
-        PageFactory.initElements(webDriver, this);
+        PageFactory.initElements(WebDriverFactory.getCurrentWebDriver(), this);
     }
 
     @FindBy(xpath = "//i[@class=\'oxd-icon bi-plus oxd-button-icon\']")

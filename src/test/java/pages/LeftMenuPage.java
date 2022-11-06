@@ -1,5 +1,6 @@
 package pages;
 
+import factories.WebDriverFactory;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -7,7 +8,7 @@ import service.AbstractSeleniumPage;
 
 public class LeftMenuPage extends AbstractSeleniumPage {
     public LeftMenuPage(){
-        PageFactory.initElements(webDriver, this);
+        PageFactory.initElements(WebDriverFactory.getCurrentWebDriver(), this);
     }
 
     @FindBy(xpath = "//span[@class='oxd-text oxd-text--span oxd-main-menu-item--name' and text()='Directory']")

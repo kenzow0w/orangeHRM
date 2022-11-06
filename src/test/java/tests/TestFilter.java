@@ -1,5 +1,6 @@
 package tests;
 
+import factories.WebDriverFactory;
 import jdk.jfr.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,7 +11,6 @@ import pages.LoginPage;
 import pages.MainPage;
 import service.AbstractSeleniumPage;
 import service.AbstractSeleniumTest;
-import utils.AccountCredentials;
 
 import java.util.List;
 import java.util.Locale;
@@ -19,12 +19,10 @@ public class TestFilter extends AbstractSeleniumTest {
 
     private static SoftAssert softAssert = new SoftAssert();
 
-
     @Test
     public void test123(){
 
     }
-
 
     @Description(value = "Verify the results contains user(s) with " +
             "name containing the Name field input “ch”")
@@ -49,7 +47,7 @@ public class TestFilter extends AbstractSeleniumTest {
     }
 
     public void checkNamesResult() {
-        List<WebElement> namesList = AbstractSeleniumPage.getWebDriver().findElements(By.xpath("//p[@class='oxd-text oxd-text--p orangehrm-directory-card-header --break-words']"));
+        List<WebElement> namesList = WebDriverFactory.getCurrentWebDriver().findElements(By.xpath("//p[@class='oxd-text oxd-text--p orangehrm-directory-card-header --break-words']"));
         for (WebElement element : namesList) {
             softAssert.assertTrue(element.getText().toLowerCase(Locale.ROOT).contains("ch"), "Person with name " + element.getText() + " doesn't contain name with 'Ch'");
         }
@@ -57,7 +55,7 @@ public class TestFilter extends AbstractSeleniumTest {
 
     public void checkCountryResult() {
         final String expectedResult = "HQ - CA, USA";
-        List<WebElement> countryList = AbstractSeleniumPage.getWebDriver().findElements(By.xpath("//p[@class='oxd-text oxd-text--p orangehrm-directory-card-description --break-words' and text()='HQ - CA, USA']"));
+        List<WebElement> countryList = WebDriverFactory.getCurrentWebDriver().findElements(By.xpath("//p[@class='oxd-text oxd-text--p orangehrm-directory-card-description --break-words' and text()='HQ - CA, USA']"));
         for (WebElement element : countryList) {
             softAssert.assertEquals(expectedResult, element.getText(), element.getText() + " doesn't equals expected result");
         }

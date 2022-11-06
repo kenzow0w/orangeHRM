@@ -1,6 +1,7 @@
 package tests;
 
 import exceptions.AutotestException;
+import factories.WebDriverFactory;
 import jdk.jfr.Description;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -63,9 +64,9 @@ public class TestNewGrade extends AbstractSeleniumTest {
         String regex = "(.{3}$)";
         String xpath1 = "//div[@class='oxd-table-row oxd-table-row--with-border']/descendant::div[@class='header'] | //div[@class='oxd-table-header-cell oxd-padding-cell oxd-table-th'][position()>1 and position()<5]";
         String xpath2 = "//div[@class='oxd-table-row oxd-table-row--with-border']/descendant::div[@class='data'] | //div[@class='oxd-table-cell oxd-padding-cell'][position()>1 and position()<5]";
-        WebDriverWait wait = new WebDriverWait(AbstractSeleniumPage.getWebDriver(), Duration.ofSeconds(20));
-        List<WebElement> listHeader = AbstractSeleniumPage.getWebDriver().findElements(By.xpath(xpath1));
-        List<WebElement> listValues = AbstractSeleniumPage.getWebDriver().findElements(By.xpath(xpath2));
+        WebDriverWait wait = new WebDriverWait(WebDriverFactory.getCurrentWebDriver(), Duration.ofSeconds(20));
+        List<WebElement> listHeader = WebDriverFactory.getCurrentWebDriver().findElements(By.xpath(xpath1));
+        List<WebElement> listValues = WebDriverFactory.getCurrentWebDriver().findElements(By.xpath(xpath2));
         wait.until(ExpectedConditions.visibilityOf(listValues.get(0)));
         Iterator<WebElement> iterator = listValues.iterator();
         while (iterator.hasNext()) {

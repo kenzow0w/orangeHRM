@@ -1,5 +1,6 @@
 package pages;
 
+import factories.WebDriverFactory;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -12,7 +13,7 @@ import java.time.Duration;
 public class MainPage extends AbstractSeleniumPage {
 
     public MainPage() {
-        PageFactory.initElements(webDriver, this);
+        PageFactory.initElements(WebDriverFactory.getCurrentWebDriver(), this);
     }
 
     @FindBy(xpath = "//input[@placeholder='Type for hints...']")
@@ -60,12 +61,11 @@ public class MainPage extends AbstractSeleniumPage {
 
     public void logout() throws InterruptedException {
         AbstractSeleniumPage.clickButton(profileIcon);
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(WebDriverFactory.getCurrentWebDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(logout)).click();
     }
 
     public MainPage clickElementForNameFromJobList(String name) throws InterruptedException {
-//        AbstractSeleniumPage.clickButton(listJob2);
         try{
             listJob2.click();
         }catch (RuntimeException e){
