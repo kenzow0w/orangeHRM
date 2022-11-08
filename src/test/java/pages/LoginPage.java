@@ -17,8 +17,6 @@ public class LoginPage extends AbstractSeleniumPage {
 
     public LoginPage() {
         PageFactory.initElements(WebDriverFactory.getCurrentWebDriver(), this);
-        boolean isOpen = shouldExistQuestion();
-        Assertions.assertTrue(isOpen, "Login page is not Open");
     }
 
     @FindBy(xpath = "//input[@name='username']")
@@ -39,14 +37,6 @@ public class LoginPage extends AbstractSeleniumPage {
         AbstractSeleniumPage.sendKeysInElement(passwordField, accountCredentials.getPassword());
         clickLogin();
         return this;
-    }
-
-    public boolean shouldExistQuestion() {
-        boolean flag = false;
-        if (questionAboutPassword.getText().equals("Forgot your password?")) {
-            flag = true;
-        }
-        return flag;
     }
 
     public void clickLogin() throws InterruptedException {

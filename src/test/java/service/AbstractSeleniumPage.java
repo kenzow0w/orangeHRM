@@ -12,6 +12,7 @@ abstract public class AbstractSeleniumPage {
 
     protected static final Logger LOG = LogManager.getLogger(AbstractSeleniumPage.class);
 
+
     public static void getWebSite(String url) throws InterruptedException, AutotestException {
         int count = 0;
         do {
@@ -28,7 +29,6 @@ abstract public class AbstractSeleniumPage {
             }
         } while (count < 3);
     }
-
 
     public static void freeze(int millis) throws InterruptedException {
         Thread.sleep(millis);

@@ -40,7 +40,7 @@ public class MainPage extends AbstractSeleniumPage {
     @FindBy(xpath = "(//ul[@class='oxd-dropdown-menu']/li/a)[2]")
     private WebElement listJob2;
 
-    public MainPage fillField(String text) {
+    public MainPage fillFieldWithValue(String text) {
         AbstractSeleniumPage.sendKeysInElement(employeesNameField, text);
         return this;
     }

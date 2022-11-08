@@ -31,11 +31,11 @@ public class TestFilter extends AbstractSeleniumTest {
         LoginPage loginPage = new LoginPage();
         loginPage.autorization("Orange Orange");
         LeftMenuPage leftMenuPage = new LeftMenuPage();
-        leftMenuPage.clickDirectoryButton();
+        leftMenuPage.clickButtonFromMenuForName("Directory");
         AbstractSeleniumPage.freeze(2000);
         MainPage mainPage = new MainPage();
         AbstractSeleniumPage.refreshPage();
-        mainPage.fillField("ch")
+        mainPage.fillFieldWithValue("ch")
                 .clickLocationField()
                 .chooseOneOfLocation()
                 .clickSearchButton();

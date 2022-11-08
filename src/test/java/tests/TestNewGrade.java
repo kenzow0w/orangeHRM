@@ -36,7 +36,7 @@ public class TestNewGrade extends AbstractSeleniumTest {
         LoginPage loginPage = new LoginPage();
         loginPage.autorization("Orange Orange");
         LeftMenuPage leftMenuPage = new LeftMenuPage();
-        leftMenuPage.clickAdminButton();
+        leftMenuPage.clickButtonFromMenuForName("Admin");
         AbstractSeleniumPage.refreshPage();
         MainPage mainPage = new MainPage();
         mainPage.clickJobButton()
@@ -53,7 +53,6 @@ public class TestNewGrade extends AbstractSeleniumTest {
                 .enterMaxSalary(expectedMaxSalary)
                 .clickSaveCurrencyButton()
                 .shouldBeVisibleSuccessMessageCurrency();
-
         AbstractSeleniumPage.freeze(5000);
         checkInformationAboutPosition();
         softAssert.assertAll();
