@@ -1,15 +1,24 @@
 package pages;
 
+import factories.FieldFactory;
 import factories.WebDriverFactory;
-import org.junit.jupiter.api.Assertions;
+import fields.AbstractField;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.Test;
 import service.AbstractSeleniumPage;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import utils.AccountCredentials;
+
+import javax.annotation.processing.RoundEnvironment;
+import javax.lang.model.element.TypeElement;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class LoginPage extends AbstractSeleniumPage {
 
@@ -42,5 +51,18 @@ public class LoginPage extends AbstractSeleniumPage {
     public void clickLogin() throws InterruptedException {
         AbstractSeleniumPage.clickButton(loginButton);
     }
+
+    @Test
+    public void getNameFromAnnotation() {
+//        List<Field> list = List.of(this.getClass().getDeclaredFields());
+//        for(Field field : list){
+//            if(field.isAnnotationPresent(FindBy.class)) {
+//                System.out.println(field.getAnnotation(FindBy.class).xpath());
+//                System.out.println(field.getName());
+//            }
+//        }
+        List<Field> fieldFromPage = new ArrayList<>(FieldFactory.getPageFields.apply(LoginPage.class));
+    }
+
 
 }

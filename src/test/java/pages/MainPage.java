@@ -51,7 +51,7 @@ public class MainPage extends AbstractSeleniumPage {
     }
 
     public MainPage chooseOneOfLocation() throws InterruptedException {
-        locationUSA.click();
+        AbstractSeleniumPage.clickButton(locationUSA);
         return this;
     }
 
@@ -67,11 +67,10 @@ public class MainPage extends AbstractSeleniumPage {
 
     public MainPage clickElementForNameFromJobList(String name) throws InterruptedException {
         try{
-            listJob2.click();
+            AbstractSeleniumPage.clickButton(listJob2);
         }catch (RuntimeException e){
             throw new RuntimeException("exception");
         }
-
         return this;
     }
 

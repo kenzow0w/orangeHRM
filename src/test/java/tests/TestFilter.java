@@ -15,6 +15,8 @@ import service.AbstractSeleniumTest;
 import java.util.List;
 import java.util.Locale;
 
+import static utils.Utils.freeze;
+
 public class TestFilter extends AbstractSeleniumTest {
 
     private static SoftAssert softAssert = new SoftAssert();
@@ -32,7 +34,7 @@ public class TestFilter extends AbstractSeleniumTest {
         loginPage.autorization("Orange Orange");
         LeftMenuPage leftMenuPage = new LeftMenuPage();
         leftMenuPage.clickButtonFromMenuForName("Directory");
-        AbstractSeleniumPage.freeze(2000);
+        freeze(2000);
         MainPage mainPage = new MainPage();
         AbstractSeleniumPage.refreshPage();
         mainPage.fillFieldWithValue("ch")

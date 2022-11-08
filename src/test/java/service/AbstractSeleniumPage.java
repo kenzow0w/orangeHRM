@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static factories.WebDriverFactory.*;
+import static utils.Utils.freeze;
 
 abstract public class AbstractSeleniumPage {
 
@@ -25,13 +26,9 @@ abstract public class AbstractSeleniumPage {
                 getCurrentWebDriver().get(url);
                 break;
             } catch (RuntimeException e) {
-                AbstractSeleniumPage.freeze(3000);
+                freeze(3000);
             }
         } while (count < 3);
-    }
-
-    public static void freeze(int millis) throws InterruptedException {
-        Thread.sleep(millis);
     }
 
     public static void refreshPage() {
@@ -50,7 +47,7 @@ abstract public class AbstractSeleniumPage {
                 element.click();
                 break;
             } catch (RuntimeException e) {
-                AbstractSeleniumPage.freeze(1000);
+                freeze(1000);
             }
         } while (tries < 4);
     }

@@ -20,6 +20,8 @@ import utils.Evaluator;
 import java.time.Duration;
 import java.util.*;
 
+import static utils.Utils.freeze;
+
 public class TestNewGrade extends AbstractSeleniumTest {
 
     private static SoftAssert softAssert = new SoftAssert();
@@ -53,7 +55,7 @@ public class TestNewGrade extends AbstractSeleniumTest {
                 .enterMaxSalary(expectedMaxSalary)
                 .clickSaveCurrencyButton()
                 .shouldBeVisibleSuccessMessageCurrency();
-        AbstractSeleniumPage.freeze(5000);
+        freeze(5000);
         checkInformationAboutPosition();
         softAssert.assertAll();
     }

@@ -10,6 +10,8 @@ import service.AbstractSeleniumPage;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+import static utils.Utils.freeze;
+
 public class PayGradesPage extends AbstractSeleniumPage {
 
     public PayGradesPage() {
@@ -88,7 +90,7 @@ public class PayGradesPage extends AbstractSeleniumPage {
                 LOG.info("visible success message - " + successMessage.isDisplayed());
                 break;
             } catch (StaleElementReferenceException | NotFoundException e) {
-                AbstractSeleniumPage.freeze(2000);
+                freeze(2000);
             }
         } while (tries < 4);
         return this;
@@ -107,7 +109,7 @@ public class PayGradesPage extends AbstractSeleniumPage {
                 LOG.info("visible success message - " + successMessage.isDisplayed());
                 break;
             } catch (StaleElementReferenceException | NotFoundException e) {
-                AbstractSeleniumPage.freeze(2000);
+                freeze(2000);
             }
         } while (tries < 4);
         return this;
@@ -129,13 +131,13 @@ public class PayGradesPage extends AbstractSeleniumPage {
         Robot robot = new Robot();
         selectButton.click();
         AbstractSeleniumPage.scrollIntoView("down");
-        AbstractSeleniumPage.freeze(5000);
+        freeze(5000);
         AbstractSeleniumPage.refreshPage();
-        AbstractSeleniumPage.freeze(5000);
+        freeze(5000);
         addCurrenciesButton.click();
         selectButton.click();
         robot.keyPress(KeyEvent.VK_I);
-        AbstractSeleniumPage.freeze(200);
+        freeze(200);
         robot.keyPress(KeyEvent.VK_ENTER);
     }
 }
